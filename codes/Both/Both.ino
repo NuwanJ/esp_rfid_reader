@@ -8,24 +8,17 @@
 #include <SPI.h>
 #include "MFRC522.h"
 
-/* wiring the MFRC522 to ESP8266 (ESP-12)
-  RST     = GPIO5
-  SDA(SS) = GPIO4
-  MOSI    = GPIO13
-  MISO    = GPIO12
-  SCK     = GPIO14
-  GND     = GND
-  3.3V    = 3.3V
+/*
+  MOSI    = D7 GPIO13
+  MISO    = D6 GPIO12
+  SCK     = D5 GPIO14
 */
 
-#define RST_PIN	D0  // RST-PIN für RC522 - RFID - SPI - Modul GPIO5 
-#define SS_PIN	D2  // SDA-PIN für RC522 - RFID - SPI - Modul GPIO4 
+#define RST_PIN	D0  // GPI16
+#define SS_PIN	D2  // GPIO4 
 
-#define SDA_PIN D3
-#define SCL_PIN D1 
-
-// brzo_i2c_setup(uint8_t sda, uint8_t scl, uint32_t clock_stretch_time_out_usec).
-//SSD1306  display(0x3c, D3, D5);
+#define SDA_PIN D3 	// GPIO 00
+#define SCL_PIN D1 	// GPIO 05
 
 SSD1306Brzo  display(0x3c, SDA_PIN, SCL_PIN);
 MFRC522 mfrc522(SS_PIN, RST_PIN);	// Create MFRC522 instance
@@ -34,7 +27,6 @@ void setup() {
 
   Serial.begin(115200);    // Initialize serial communications
   delay(250);
-  Serial.println(F("Booting...."));
 
   SPI.begin();	         // Init SPI bus
   mfrc522.PCD_Init();    // Init MFRC522
